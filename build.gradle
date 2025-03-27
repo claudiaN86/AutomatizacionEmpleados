@@ -1,0 +1,57 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
+
+group 'com.herokuapp'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "net.serenity-bdd:serenity-gradle-plugin:3.3.0"
+    }
+}
+
+ext {
+    serenityVersion = "3.3.4"
+    serenityCucumberVersion = "3.3.4"
+    serenityEnsureVersion = "3.2.5"
+    slf4jSimpleVersion = "1.7.36"
+    junitVersion = "4.13.2"
+}
+
+dependencies {
+    implementation group: 'junit', name: 'junit', version: "${junitVersion}"
+    implementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: "${serenityCucumberVersion}"
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay', version: "${serenityVersion}"
+    implementation group: 'net.serenity-bdd', name: 'serenity-screenplay-webdriver', version: "${serenityVersion}"
+    implementation group: 'net.serenity-bdd', name: 'serenity-ensure', version: "${serenityEnsureVersion}"
+    implementation group: 'org.slf4j', name: 'slf4j-simple', version: "${slf4jSimpleVersion}"
+    testImplementation group: 'junit', name: 'junit', version: "${junitVersion}"
+}
+
+serenity {
+    testRoot = "com.orange"
+    requirementsDir = "src/test/resources/features"
+}
+
+
+test {
+    systemProperties System.getProperties()
+    testLogging.showStandardStreams = true
+}
+
+gradle.startParameter.continueOnFailure = true
+test.finalizedBy(aggregate)
