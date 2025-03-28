@@ -3,7 +3,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: "net.serenity-bdd.serenity-gradle-plugin"
 
-group 'com.herokuapp'
+group 'com.orange'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11

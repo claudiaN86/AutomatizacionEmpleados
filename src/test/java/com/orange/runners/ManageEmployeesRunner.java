@@ -12,7 +12,8 @@ import org.junit.runner.RunWith;
         //tags = "@EditEmployee",
        // tags = "@AddingEmployee",
         //tags = "@SearchEmployee",
-        tags = "@DeleteEmployee",
+       // tags = "@DeleteEmployee",
+        tags = "@UploadFile",
         plugin = {"pretty"},
         snippets = CucumberOptions.SnippetType.CAMELCASE
 )

@@ -49,16 +49,16 @@ Feature: Employee Management in OrangeHRM
       | 1            | Info         | No Records Found |
 
 
+  @UploadFile
   Scenario Outline: Upload a file in My Info on Contact Details
-    Given the user is in My Info on Contact Details
-    When the user uploads a valid file <fileName>
-    Then the file should be visible <fileName> below the form
+    When the user on Contact Details uploads a valid file "<fileName>"
+    Then the file should be visible "<fileName>" below the form
 
     Examples:
       | fileName |
       | img.png  |
 
-
+  @DeleteUpdloadFile
   Scenario Outline:: Delete an uploaded file
     Given the user has a file in My Info on Contact Details
     When the user deletes the file <fileName>

@@ -104,4 +104,18 @@ public class ManageEmployeesStepDefinition {
         );
     }
 
+
+    @When("the user on Contact Details uploads a valid file {string}")
+    public void theUserOnContactDetailsUploadsAValidFile(String fileName) {
+        theActorInTheSpotlight().attemptsTo(
+                UploadFileTask.upload(fileName)
+        );
+    }
+    @Then("the file should be visible {string} below the form")
+    public void theFileShouldBeVisibleBelowTheForm(String fileName) {
+        theActorInTheSpotlight().should(
+                GivenWhenThen.seeThat("Se espera que archivo se cargo: ", VerifyTextElement.verify(LIST_FILENAME_ATTACHMENTS,fileName))
+        );
+    }
+
 }
