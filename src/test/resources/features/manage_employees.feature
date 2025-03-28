@@ -25,15 +25,18 @@ Feature: Employee Management in OrangeHRM
 
     Examples:
       | firstName | lastName | otherEmail         | province | message |
-      | Emilio    | Guzman    | Test_#@yopmail.com | Testone  | Success |
+      | Emilio    | Guzman   | Test_#@yopmail.com | Testone  | Success |
 
+  @SearchEmployee
   Scenario Outline: Search for an employee
-    Given the user is on the Employee List page
-    When the user searches for an employee by <nameEmployed>
-    Then the correct employee <nameEmployed> should appear in the results
+    When the user on Employee List page searches an employee "<nameEmployed>"
+    Then the correct employee "<nameEmployed>" should appear in the results
+
     Examples:
       | nameEmployed |
       | Sara         |
+      | emilina      |
+      | 14           |
 
 
   Scenario Outline: Delete an employee
