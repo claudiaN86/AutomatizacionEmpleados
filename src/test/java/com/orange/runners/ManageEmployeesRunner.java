@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/resources/features/manage_employees.feature",
         glue = "com.orange",
+        //tags = "@EditEmployee",
         tags = "@AddingEmployee",
         plugin = {"pretty"},
         snippets = CucumberOptions.SnippetType.CAMELCASE

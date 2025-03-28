@@ -11,7 +11,6 @@ import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import static com.orange.userinterfaces.AddEmployeePage.*;
-import static com.orange.userinterfaces.DetailsEmployeePage.*;
 import static com.orange.userinterfaces.HorizontalNavbarPage.OPTION_ADD_EMPLOYEE;
 import static com.orange.userinterfaces.VerticalNavbarPage.OPTION_PIM;
 
@@ -31,26 +30,15 @@ public class AddEmployeeTask implements Task {
         actor.attemptsTo(
                 Click.on(OPTION_PIM),
                 Click.on(OPTION_ADD_EMPLOYEE),
-                Enter.theValue(data.getFirstName()).into(INPUT_NAME_NEW_EMPLOYEE),
+                Enter.theValue(data.getFirstName()).into(INPUT_NAME_EMPLOYEE),
                 Enter.theValue(data.getLastName()).into(INPUT_LAST_NAME_EMPLOYEE)
         );
 
         actor.attemptsTo(
                 Click.on(BUTTON_SAVE),
-                WaitUntil.the(POP_UP_SUCCESSFUL_SAVE, WebElementStateMatchers.isNotCurrentlyVisible()).forNoMoreThan(5).seconds(),
-                Click.on(OPTION_CONTACT_DETAILS)
-        );
-
-        actor.attemptsTo(
-                WaitUntil.the(INPUT_OTHER_EMAIL, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds(),
-                Enter.keyValues(data.getProvince()).into(INPUT_STATE_PROVINCE),
-                Enter.keyValues(data.getProvince()).into(INPUT_STATE_PROVINCE)
+                WaitUntil.the(POP_UP_SUCCESSFUL_SAVE, WebElementStateMatchers.isNotCurrentlyVisible()).forNoMoreThan(5).seconds()
 
         );
 
-        actor.attemptsTo(
-                Enter.keyValues(data.getOtherEmail()).into(INPUT_OTHER_EMAIL),
-                Click.on(BUTTON_SAVE)
-        );
     }
 }
