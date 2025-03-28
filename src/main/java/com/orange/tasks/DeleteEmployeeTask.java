@@ -14,20 +14,18 @@ import net.serenitybdd.screenplay.waits.WaitUntil;
 import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_BODY;
 import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_TITLE;
 import static com.orange.userinterfaces.EmployeeListPage.*;
+import static com.orange.userinterfaces.VerticalNavbarPage.OPTION_PIM;
 
 public class DeleteEmployeeTask implements Task {
-    private String idEmployee;
 
-    public DeleteEmployeeTask(String idEmployee) {
-        this.idEmployee = idEmployee;
-    }
-
-    public static Performable search(String idEmployee) {
-        return Tasks.instrumented(DeleteEmployeeTask.class, idEmployee);
+    public static Performable delete() {
+        return Tasks.instrumented(DeleteEmployeeTask.class);
     }
 
     @Override
     public <T extends Actor> void performAs(T actor) {
+
+        actor.attemptsTo(Click.on(OPTION_PIM));
 
         String idEmployee = LIST_ID_EMPLOYEES.resolveAllFor(actor).get(0).getText();
         Serenity.setSessionVariable("idEmployee").to(idEmployee);

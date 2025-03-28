@@ -1,8 +1,8 @@
 @ManageEmployee
 Feature: Employee Management in OrangeHRM
-  I as administrator
-  want manage employee data
-  to keep employee information up-to-date and organized
+  As administrator
+  I want manage employee data
+  To keep employee information up-to-date and organized
 
   Background: Login on OrangeHRM
     Given the user is logged into OrangeHRM
@@ -41,12 +41,12 @@ Feature: Employee Management in OrangeHRM
 
   @DeleteEmployee
   Scenario Outline: Delete an employee
-    When the user on Employee List page deleted an employee "<nameEmployed>" in the list
+    When the user on Employee List page deleted an employee in the list
     Then the employee deleted show "<messageTitle>" "<messageBody>" and should no longer be in the list
 
     Examples:
-      | nameEmployed | messageTitle | messageBody      |
-      | 1            | Info         | No Records Found |
+      | messageTitle | messageBody      |
+      | Info         | No Records Found |
 
 
   @UploadFile

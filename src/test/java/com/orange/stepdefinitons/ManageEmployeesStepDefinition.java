@@ -89,11 +89,10 @@ public class ManageEmployeesStepDefinition {
     }
 
 
-    @When("the user on Employee List page deleted an employee {string} in the list")
-    public void theUserOnEmployeeListPageDeletedAnEmployeeInTheList(String nameEmployee) {
+    @When("the user on Employee List page deleted an employee in the list")
+    public void theUserOnEmployeeListPageDeletedAnEmployeeInTheList() {
         theActorInTheSpotlight().attemptsTo(
-                SearchEmployeeTask.search(nameEmployee),
-                DeleteEmployeeTask.search(Serenity.sessionVariableCalled("idEmployee"))
+                DeleteEmployeeTask.delete()
         );
     }
 
