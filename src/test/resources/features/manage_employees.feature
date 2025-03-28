@@ -4,30 +4,28 @@ Feature: Employee Management in OrangeHRM
   want manage employee data
   to keep employee information up-to-date and organized
 
-
   @AddingEmployee
   Scenario Outline: Add a new employee
     Given the user is logged into OrangeHRM
     When the user adds a new employee with the data
-      | <firstName> | <lastName> | <otherEmail> | <department> |
+      | <firstName> | <lastName> | <otherEmail> | <province> | <message> |
     Then the employee should be created successfully with your data
-      | <firstName> | <lastName> | <department> | <message> |
 
     Examples:
-      | firstName | lastName | otherEmail        | department | message |
-      | Sandra    | Perez    | Test_#@yopmail.com | Testone    | Success |
+      | firstName | lastName | otherEmail         | province | message |
+      | Sandra    | Perez    | Test_#@yopmail.com | Testone  | Success |
 
 
   Scenario Outline: Edit an existing employee
     Given the user is logged in and on the Employee List page
     When the user updates an existing employee's details
-      | <firstName> | <lastName> | <otherEmail> | <department> |
+      | <firstName> | <lastName> | <otherEmail> | <province> |
     Then the updated details should be visible in the list
-      | <firstName> | <lastName> | <otherEmail> | <department> |
+      | <firstName> | <lastName> | <otherEmail> | <province> |
 
     Examples:
-      | firstName | lastName | otherEmail          | department |
-      | Emilio    | Perez    | update1@yopmail.com | updateone  |
+      | firstName | lastName | otherEmail          | province  |
+      | Emilio    | Perez    | update1@yopmail.com | updateone |
 
 
   Scenario Outline: Search for an employee
