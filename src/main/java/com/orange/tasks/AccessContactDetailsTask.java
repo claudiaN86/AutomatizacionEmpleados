@@ -11,7 +11,8 @@ import net.serenitybdd.screenplay.actions.Enter;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
-import static com.orange.userinterfaces.AddEmployeePage.*;
+import static com.orange.userinterfaces.AddEmployeePage.BUTTON_SAVE;
+import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_TITLE;
 import static com.orange.userinterfaces.DetailsEmployeePage.*;
 
 public class AccessContactDetailsTask implements Task {
@@ -25,6 +26,7 @@ public class AccessContactDetailsTask implements Task {
     public static Performable withData(EmployeeModel data) {
         return Tasks.instrumented(AccessContactDetailsTask.class, data);
     }
+
     @Override
     public <T extends Actor> void performAs(T actor) {
         actor.attemptsTo(
@@ -39,7 +41,7 @@ public class AccessContactDetailsTask implements Task {
                 ClearInputAction.clear(INPUT_OTHER_EMAIL),
                 Enter.keyValues(data.getOtherEmail()).into(INPUT_OTHER_EMAIL),
                 Click.on(BUTTON_SAVE),
-                WaitUntil.the(POP_UP_SUCCESSFUL_SAVE, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds()
+                WaitUntil.the(ALERT_POP_UP_TITLE, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds()
         );
     }
 }

@@ -10,14 +10,16 @@ public class EmployeeModel {
     private String lastName;
     private String otherEmail;
     private String province;
-    private String message;
+    private String messageTitle;
+    private String messageBody;
 
     public EmployeeModel(List<List<String>> data) {
         this.firstName = data.get(0).get(0);
         this.lastName = data.get(0).get(1);
         this.otherEmail = data.get(0).get(2).replace("#", GenerateId.generateSerial(5));
         this.province = data.get(0).get(3);
-        this.message = data.get(0).get(4);
+        this.messageTitle = data.get(0).get(4);
+        this.messageBody = data.get(0).get(5);
     }
 
     public String getFirstName() {
@@ -36,7 +38,11 @@ public class EmployeeModel {
         return province;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageTitle() {
+        return messageTitle;
+    }
+
+    public String getMessageBody() {
+        return messageBody;
     }
 }

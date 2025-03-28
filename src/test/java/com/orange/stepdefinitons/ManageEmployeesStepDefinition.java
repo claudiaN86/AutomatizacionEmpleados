@@ -9,12 +9,14 @@ import com.orange.userinterfaces.HomePage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import net.serenitybdd.core.Serenity;
 import net.serenitybdd.screenplay.GivenWhenThen;
 import net.serenitybdd.screenplay.actions.Open;
 
 import java.util.List;
 
-import static com.orange.userinterfaces.AddEmployeePage.POP_UP_SUCCESSFUL_SAVE;
+import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_BODY;
+import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_TITLE;
 import static com.orange.userinterfaces.DetailsEmployeePage.*;
 import static net.serenitybdd.screenplay.actors.OnStage.theActorInTheSpotlight;
 
@@ -24,16 +26,12 @@ public class ManageEmployeesStepDefinition {
 
     @Given("the user is logged into OrangeHRM")
     public void theUserIsLoggedIntoOrangeHRM() {
-        theActorInTheSpotlight().wasAbleTo(
-                Open.browserOn().the(HomePage.class),
-                AccessLoginTask.withData()
-        );
+        theActorInTheSpotlight().wasAbleTo(Open.browserOn().the(HomePage.class), AccessLoginTask.withData());
     }
 
     @When("the user adds a new employee with the data")
     public void theUserAddsANewEmployeeWithTheData(List<List<String>> data) {
         employeeModel = new EmployeeModel(data);
-
         theActorInTheSpotlight().attemptsTo(
                 AddEmployeeTask.addWithData(employeeModel),
                 AccessContactDetailsTask.withData(employeeModel)
@@ -43,15 +41,19 @@ public class ManageEmployeesStepDefinition {
 
     @Then("the employee should be created successfully with your data")
     public void theEmployeeShouldBeCreatedSuccessfullyWithYourData() {
-
         theActorInTheSpotlight().should(
-                GivenWhenThen.seeThat("Se espera que muestre pop-up Success: ", VerifyTextElement.verify(POP_UP_SUCCESSFUL_SAVE, employeeModel.getMessage())),
-                GivenWhenThen.seeThat("Se espera que Full Name sea el ingresado: ", VerifyTextElement.verify(LABEL_FULL_NAME, employeeModel.getFirstName() + " " + employeeModel.getLastName())),
-                GivenWhenThen.seeThat("Se espera que el Email sea el ingresado: ", VerifyValueElement.verify(INPUT_OTHER_EMAIL, employeeModel.getOtherEmail())),
-                GivenWhenThen.seeThat("Se espera que La Provincia sea el ingresado: ", VerifyValueElement.verify(INPUT_STATE_PROVINCE, employeeModel.getProvince()))
-        );
-
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Title Success: ",
+                        VerifyTextElement.verify(ALERT_POP_UP_TITLE, employeeModel.getMessageTitle())),
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Body Success: ",
+                        VerifyTextElement.verify(ALERT_POP_UP_BODY, employeeModel.getMessageBody())),
+                GivenWhenThen.seeThat("Se espera que Full Name sea el ingresado: ",
+                        VerifyTextElement.verify(LABEL_FULL_NAME, employeeModel.getFirstName() + " " + employeeModel.getLastName())),
+                GivenWhenThen.seeThat("Se espera que el Email sea el ingresado: ",
+                        VerifyValueElement.verify(INPUT_OTHER_EMAIL, employeeModel.getOtherEmail())),
+                GivenWhenThen.seeThat("Se espera que La Provincia sea el ingresado: ",
+                        VerifyValueElement.verify(INPUT_STATE_PROVINCE, employeeModel.getProvince())));
     }
+
 
     @When("the user updates an existing employee's details")
     public void theUserUpdatesAnExistingEmployeeSDetails(List<List<String>> data) {
@@ -66,7 +68,8 @@ public class ManageEmployeesStepDefinition {
     @Then("the updated details should be visible in the list")
     public void theUpdatedDetailsShouldBeVisibleInTheList() {
         theActorInTheSpotlight().should(
-                GivenWhenThen.seeThat("Se espera que muestre pop-up Success: ", VerifyTextElement.verify(POP_UP_SUCCESSFUL_SAVE, employeeModel.getMessage())),
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Title info: ", VerifyTextElement.verify(ALERT_POP_UP_TITLE, employeeModel.getMessageTitle())),
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Body No Records Found: ", VerifyTextElement.verify(ALERT_POP_UP_BODY, employeeModel.getMessageBody())),
                 GivenWhenThen.seeThat("Se espera que Full Name sea el ingresado: ", VerifyTextElement.verify(LABEL_FULL_NAME, employeeModel.getFirstName() + " " + employeeModel.getLastName())),
                 GivenWhenThen.seeThat("Se espera que el Email sea el ingresado: ", VerifyValueElement.verify(INPUT_OTHER_EMAIL, employeeModel.getOtherEmail())),
                 GivenWhenThen.seeThat("Se espera que La Provincia sea el ingresado: ", VerifyValueElement.verify(INPUT_STATE_PROVINCE, employeeModel.getProvince()))
@@ -76,15 +79,29 @@ public class ManageEmployeesStepDefinition {
 
     @When("the user on Employee List page searches an employee {string}")
     public void theUserOnEmployeeListPageSearchesAnEmployeeBySara(String name) {
-        theActorInTheSpotlight().attemptsTo(
-                SearchEmployeeTask.search(name)
-        );
+        theActorInTheSpotlight().attemptsTo(SearchEmployeeTask.search(name));
     }
 
     @Then("the correct employee {string} should appear in the results")
     public void theCorrectEmployeeSaraShouldAppearInTheResults(String name) {
-        theActorInTheSpotlight().should(
-                GivenWhenThen.seeThat("Se espera que este el nombre este de la columna firstname de la lista: ", VerifyNameInList.verify(name))
+        theActorInTheSpotlight().should(GivenWhenThen.seeThat("Se espera que este el nombre este de la columna firstname de la lista: ", VerifyNameInList.verify(name)));
+    }
+
+
+    @When("the user on Employee List page deleted an employee {string} in the list")
+    public void theUserOnEmployeeListPageDeletedAnEmployeeInTheList(String nameEmployee) {
+        theActorInTheSpotlight().attemptsTo(
+                SearchEmployeeTask.search(nameEmployee),
+                DeleteEmployeeTask.search(Serenity.sessionVariableCalled("idEmployee"))
         );
     }
+
+    @Then("the employee deleted show {string} {string} and should no longer be in the list")
+    public void theEmployeeDeletedShowAndShouldNoLongerBeInTheList(String messageTitle, String messageBody) {
+        theActorInTheSpotlight().should(
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Title info: ", VerifyTextElement.verify(ALERT_POP_UP_TITLE, messageTitle)),
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Body No Records Found: ", VerifyTextElement.verify(ALERT_POP_UP_BODY, messageBody))
+        );
+    }
+
 }

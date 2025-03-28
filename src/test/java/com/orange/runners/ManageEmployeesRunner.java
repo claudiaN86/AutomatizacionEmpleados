@@ -11,7 +11,8 @@ import org.junit.runner.RunWith;
         glue = "com.orange",
         //tags = "@EditEmployee",
        // tags = "@AddingEmployee",
-        tags = "@SearchEmployee",
+        //tags = "@SearchEmployee",
+        tags = "@DeleteEmployee",
         plugin = {"pretty"},
         snippets = CucumberOptions.SnippetType.CAMELCASE
 )

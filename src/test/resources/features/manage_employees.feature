@@ -10,22 +10,22 @@ Feature: Employee Management in OrangeHRM
   @AddingEmployee
   Scenario Outline: Add a new employee
     When the user adds a new employee with the data
-      | <firstName> | <lastName> | <otherEmail> | <province> | <message> |
+      | <firstName> | <lastName> | <otherEmail> | <province> | <messageTitle> | <messageBody> |
     Then the employee should be created successfully with your data
 
     Examples:
-      | firstName | lastName | otherEmail         | province | message |
-      | Sandra    | Perez    | Test_#@yopmail.com | Testone  | Success |
+      | firstName | lastName | otherEmail         | province | messageTitle | messageBody        |
+      | Sandra    | Perez    | Test_#@yopmail.com | Testone  | Success      | Successfully Saved |
 
   @EditEmployee
   Scenario Outline: Edit an existing employee
     When the user updates an existing employee's details
-      | <firstName> | <lastName> | <otherEmail> | <province> | <message> |
+      | <firstName> | <lastName> | <otherEmail> | <province> | <messageTitle> | <messageBody> |
     Then the updated details should be visible in the list
 
     Examples:
-      | firstName | lastName | otherEmail         | province | message |
-      | Emilio    | Guzman   | Test_#@yopmail.com | Testone  | Success |
+      | firstName | lastName | otherEmail         | province | messageTitle | messageBody          |
+      | Emilio    | Guzman   | Test_#@yopmail.com | Testone  | Success      | Successfully Updated |
 
   @SearchEmployee
   Scenario Outline: Search for an employee
@@ -39,14 +39,14 @@ Feature: Employee Management in OrangeHRM
       | 14           |
 
 
+  @DeleteEmployee
   Scenario Outline: Delete an employee
-    Given the user is on the Employee List page
-    When the user deletes an employee <idEmployed> in the list
-    Then the employee deleted <idEmployed> should no longer be in the list
+    When the user on Employee List page deleted an employee "<nameEmployed>" in the list
+    Then the employee deleted show "<messageTitle>" "<messageBody>" and should no longer be in the list
 
     Examples:
-      | idEmployed |
-      | Sara       |
+      | nameEmployed | messageTitle | messageBody      |
+      | 1            | Info         | No Records Found |
 
 
   Scenario Outline: Upload a file in My Info on Contact Details
