@@ -112,6 +112,7 @@ public class ManageEmployeesStepDefinition {
                 UploadFileTask.upload(fileName)
         );
     }
+
     @Then("the file should be visible below the form")
     public void theFileShouldBeVisibleBelowTheForm() {
         String newFileName = Serenity.sessionVariableCalled("newFileName").toString();
@@ -136,7 +137,7 @@ public class ManageEmployeesStepDefinition {
         theActorInTheSpotlight().should(
                 GivenWhenThen.seeThat("Se espera que muestre pop-up Title info: ", VerifyTextElement.verify(ALERT_POP_UP_TITLE, messageTitle)),
                 GivenWhenThen.seeThat("Se espera que muestre pop-up Body No Records Found: ", VerifyTextElement.verify(ALERT_POP_UP_BODY, messageBody)),
-                GivenWhenThen.seeThat("Se espera que no se visualice el archivo eliminado: ", VerifyNoVisibleTextElement.verify(LIST_FILENAME_ATTACHMENTS_DETAILS,Serenity.sessionVariableCalled("newFileName")))
+                GivenWhenThen.seeThat("Se espera que no se visualice el archivo eliminado: ", VerifyNoVisibleTextElement.verify(LIST_FILENAME_ATTACHMENTS_DETAILS, Serenity.sessionVariableCalled("newFileName")))
         );
     }
 }

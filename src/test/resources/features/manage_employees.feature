@@ -14,8 +14,8 @@ Feature: Employee Management in OrangeHRM
     Then the employee should be created successfully with your data
 
     Examples:
-      | firstName | lastName | otherEmail         | province | messageTitle | messageBody        |
-      | Sandra    | Perez    | Test_#@yopmail.com | Testone  | Success      | Successfully Saved |
+      | firstName | lastName | otherEmail         | province | messageTitle | messageBody          |
+      | Sandra    | Perez    | Test_#@yopmail.com | Testone  | Success      | Successfully Updated |
 
   @EditEmployee
   Scenario Outline: Edit an existing employee

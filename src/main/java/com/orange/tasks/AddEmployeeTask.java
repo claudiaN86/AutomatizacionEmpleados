@@ -7,11 +7,12 @@ import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.ensure.Ensure;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
 import static com.orange.userinterfaces.AddEmployeePage.*;
-import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_TITLE;
+import static com.orange.userinterfaces.AlertsPopUpPage.ALERT_POP_UP_BODY;
 import static com.orange.userinterfaces.HorizontalNavbarPage.OPTION_ADD_EMPLOYEE;
 import static com.orange.userinterfaces.VerticalNavbarPage.OPTION_PIM;
 
@@ -37,8 +38,9 @@ public class AddEmployeeTask implements Task {
 
         actor.attemptsTo(
                 Click.on(BUTTON_SAVE),
-                WaitUntil.the(ALERT_POP_UP_TITLE, WebElementStateMatchers.isNotCurrentlyVisible()).forNoMoreThan(5).seconds()
-
+                WaitUntil.the(ALERT_POP_UP_BODY, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds(),
+                Ensure.that(ALERT_POP_UP_BODY).text().isEqualTo("Successfully Saved"),
+                WaitUntil.the(ALERT_POP_UP_BODY, WebElementStateMatchers.isNotCurrentlyVisible()).forNoMoreThan(5).seconds()
         );
 
     }
