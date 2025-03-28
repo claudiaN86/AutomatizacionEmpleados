@@ -10,10 +10,10 @@ import org.junit.runner.RunWith;
         //tags = "@AddingEmployee",
         //tags = "@EditEmployee",
         //tags = "@SearchEmployee",
-        tags = "@DeleteEmployee",
+        //tags = "@DeleteEmployee",
         // tags = "@UploadFile",
         //tags = "@DeleteUploadFile",
-       // tags = "@ManageEmployee",
+       tags = "@ManageEmployee",
         plugin = {"pretty"}, snippets = CucumberOptions.SnippetType.CAMELCASE)
 
 public class ManageEmployeesRunner {
