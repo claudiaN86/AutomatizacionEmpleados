@@ -11,11 +11,11 @@ Feature: Employee Management in OrangeHRM
     When the user adds a new employee with the data
       | <firstName> | <lastName> | <otherEmail> | <department> |
     Then the employee should be created successfully with your data
-     | <firstName> | <lastName> | <otherEmail> | <department> |
+      | <firstName> | <lastName> | <department> | <message> |
 
     Examples:
-      | firstName | lastName | otherEmail        | department |
-      | Sandra    | Perez    | Test1@yopmail.com | Testone    |
+      | firstName | lastName | otherEmail        | department | message |
+      | Sandra    | Perez    | Test_#@yopmail.com | Testone    | Success |
 
 
   Scenario Outline: Edit an existing employee
