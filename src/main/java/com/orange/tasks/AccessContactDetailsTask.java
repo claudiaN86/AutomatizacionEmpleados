@@ -6,8 +6,7 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
 import net.serenitybdd.screenplay.Tasks;
-import net.serenitybdd.screenplay.actions.Click;
-import net.serenitybdd.screenplay.actions.Enter;
+import net.serenitybdd.screenplay.actions.*;
 import net.serenitybdd.screenplay.matchers.WebElementStateMatchers;
 import net.serenitybdd.screenplay.waits.WaitUntil;
 
@@ -34,14 +33,15 @@ public class AccessContactDetailsTask implements Task {
                 WaitUntil.the(INPUT_OTHER_EMAIL, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds(),
                 ClearInputAction.clear(INPUT_STATE_PROVINCE),
                 Enter.keyValues(data.getProvince()).into(INPUT_STATE_PROVINCE)
-
         );
 
         actor.attemptsTo(
                 ClearInputAction.clear(INPUT_OTHER_EMAIL),
                 Enter.keyValues(data.getOtherEmail()).into(INPUT_OTHER_EMAIL),
+                Scroll.to(BUTTON_SAVE),
                 Click.on(BUTTON_SAVE),
-                WaitUntil.the(ALERT_POP_UP_TITLE, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds()
+                WaitUntil.the(ALERT_POP_UP_TITLE, WebElementStateMatchers.isPresent()).forNoMoreThan(5).seconds(),
+                Scroll.to(ALERT_POP_UP_TITLE).andAlignToTop()
         );
     }
 }

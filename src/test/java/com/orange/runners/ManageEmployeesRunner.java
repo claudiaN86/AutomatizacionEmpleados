@@ -10,10 +10,12 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features/manage_employees.feature",
         glue = "com.orange",
         //tags = "@EditEmployee",
-       // tags = "@AddingEmployee",
+        //tags = "@AddingEmployee",
         //tags = "@SearchEmployee",
        // tags = "@DeleteEmployee",
-        tags = "@UploadFile",
+       // tags = "@UploadFile",
+       //tags = "@DeleteUploadFile",
+        tags = "@ManageEmployee",
         plugin = {"pretty"},
         snippets = CucumberOptions.SnippetType.CAMELCASE
 )

@@ -2,6 +2,7 @@ package com.orange.stepdefinitons;
 
 import com.orange.models.EmployeeModel;
 import com.orange.questions.VerifyNameInList;
+import com.orange.questions.VerifyNoVisibleTextElement;
 import com.orange.questions.VerifyTextElement;
 import com.orange.questions.VerifyValueElement;
 import com.orange.tasks.*;
@@ -111,11 +112,31 @@ public class ManageEmployeesStepDefinition {
                 UploadFileTask.upload(fileName)
         );
     }
-    @Then("the file should be visible {string} below the form")
-    public void theFileShouldBeVisibleBelowTheForm(String fileName) {
+    @Then("the file should be visible below the form")
+    public void theFileShouldBeVisibleBelowTheForm() {
+        String newFileName = Serenity.sessionVariableCalled("newFileName").toString();
+
         theActorInTheSpotlight().should(
-                GivenWhenThen.seeThat("Se espera que archivo se cargo: ", VerifyTextElement.verify(LIST_FILENAME_ATTACHMENTS,fileName))
+                GivenWhenThen.seeThat("Se espera que archivo se cargo: ",
+                        VerifyTextElement.verify(LIST_FILENAME_ATTACHMENTS.of(newFileName), newFileName))
         );
     }
 
+    @When("the user on Contact Details deletes the file {string}")
+    public void theUserOnContactDetailsDeletesTheFile(String fileName) {
+        theActorInTheSpotlight().attemptsTo(
+                UploadFileTask.upload(fileName),
+                DeleteFileTask.delete()
+        );
+
+    }
+
+    @Then("messages must be visible {string} {string} and the file is no longer visible in the list")
+    public void messagesMustBeVisibleAndTheFileIsNoLongerVisibleInTheList(String messageTitle, String messageBody) {
+        theActorInTheSpotlight().should(
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Title info: ", VerifyTextElement.verify(ALERT_POP_UP_TITLE, messageTitle)),
+                GivenWhenThen.seeThat("Se espera que muestre pop-up Body No Records Found: ", VerifyTextElement.verify(ALERT_POP_UP_BODY, messageBody)),
+                GivenWhenThen.seeThat("Se espera que no se visualice el archivo eliminado: ", VerifyNoVisibleTextElement.verify(LIST_FILENAME_ATTACHMENTS_DETAILS,Serenity.sessionVariableCalled("newFileName")))
+        );
+    }
 }

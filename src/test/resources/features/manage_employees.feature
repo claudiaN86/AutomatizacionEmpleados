@@ -52,21 +52,17 @@ Feature: Employee Management in OrangeHRM
   @UploadFile
   Scenario Outline: Upload a file in My Info on Contact Details
     When the user on Contact Details uploads a valid file "<fileName>"
-    Then the file should be visible "<fileName>" below the form
+    Then the file should be visible below the form
 
     Examples:
-      | fileName |
-      | img.png  |
+      | fileName  |
+      | img_#.png |
 
-  @DeleteUpdloadFile
-  Scenario Outline:: Delete an uploaded file
-    Given the user has a file in My Info on Contact Details
-    When the user deletes the file <fileName>
-    Then it should no be visible <fileName>
+  @DeleteUploadFile
+  Scenario Outline: Delete an uploaded file
+    When the user on Contact Details deletes the file "<fileName>"
+    Then messages must be visible "<messageTitle>" "<messageBody>" and the file is no longer visible in the list
 
     Examples:
-      | fileName |
-      | img.png  |
-
-
-
+      | fileName  | messageTitle | messageBody          |
+      | img_#.png | Success      | Successfully Deleted |
